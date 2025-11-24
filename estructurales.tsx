@@ -3,7 +3,7 @@ export {}
 PATRONES ESTRUCTURALES
 */
 
-// Adapter
+// ADAPTER
 // Permite la colaboración entre objetos con interfaces incompatibles.
 // Interfaz esperada
 interface Payment {
@@ -28,7 +28,7 @@ class StripeAdapter implements Payment {
 const pago = new StripeAdapter(new StripeService())
 pago.pay(90)
 
-// Decorator
+// DECORATOR
 // Extiende funcionalidad de algo que antes no tenia
 interface Food {
   getDescription(): string
@@ -76,7 +76,7 @@ pizza = new BaconDecorator(pizza)
 console.log('Costo: ', pizza.getCost());
 console.log('Descripcion: ', pizza.getDescription());
 
-// Facade
+// FACADE
 // Proporciona una interfaz simplificada a una biblioteca, un framework o cualquier otro grupo complejo de clases.
 
 class OrderService {
@@ -114,7 +114,7 @@ class OrderFacade {
 const facade = new OrderFacade(new OrderService(), new PaymentService(), new DeliveryService())
 facade.placeOrder()
 
-// Composite
+// COMPOSITE
 // Permite componer objetos en estructuras de árbol y trabajar con esas estructuras como si fueran objetos individuales
 // Es como una estructura jerárquica
 interface FoodItem {
@@ -160,7 +160,7 @@ combo.add(tacos)
 console.log(combo.getName());
 console.log(combo.getPrice());
 
-// Proxy
+// PROXY
 // Permite proporcionar un sustituto o marcador de posición para otro objeto, permitiéndote hacer algo antes o después de que la solicitud llegue al objeto original.
 interface OrderHistory {
   getOrders(userId: string): string[]
@@ -178,10 +178,10 @@ class OrderHistoryProxy implements OrderHistory {
   constructor(private realHistory: RealOrderHistory){}
 
   getOrders(userId: string): string[] {
-    if(!this.cache.userId) {
-      this.cache.userId = this.realHistory.getOrders(userId)
+    if(!this.cache[userId]) {
+      this.cache[userId] = this.realHistory.getOrders(userId)
     }
-    return this.cache.userId
+    return this.cache[userId]
   }
 }
 
@@ -190,3 +190,7 @@ class OrderHistoryProxy implements OrderHistory {
 const history = new OrderHistoryProxy(new RealOrderHistory())
 console.log(history.getOrders('user1'));
 console.log(history.getOrders('user1'));
+console.log(history.getOrders('user2'));
+console.log(history.getOrders('user2'));
+console.log(history.getOrders('user3'));
+console.log(history.getOrders('user4'));

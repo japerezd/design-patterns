@@ -2,7 +2,7 @@
 PATRONES CREACIONALES
 */
 
-// ----------Factory pattern----------
+// ----------FACTORY PATTERN----------
 
 // El Factory Pattern se usa cuando quieres crear objetos sin exponer la lógica exacta de creación, o cuando quieres centralizar y controlar cómo se instancian ciertos tipo
 // Solo produce un solo tipo de producto por llamada (decide que clase concreta crear)
@@ -53,7 +53,7 @@ class FoodFactory {
 const factory = FoodFactory.createFood('helado')
 factory.prepare()
 
-// ----------Abstract factory----------
+// ----------ABSTRACT FACTORY----------
 // Produce multiples productos relacionados.
 // Decide qué conjunto de productos crear, asegurando consistencia entre ellos.
 class MexicanPizza extends Pizza {
@@ -108,7 +108,7 @@ class JapaneseFoodFactory implements FoodFactory {
 const mexicanPizza = new MexicanFoodFactory()
 mexicanPizza.createPizza().prepare()
 
-// ----------Builder----------
+// ----------BUILDER----------
 // Usarlo cuando un objeto tiene muchos parámetros opcionales.
 class Lasaña {
   private size: string;
@@ -154,7 +154,7 @@ lasaña.describe()
 const lasañita = new LasañaBuilder().setSize('chica').build()
 lasañita.describe();
 
-// ----------Singleton----------
+// ----------SINGLETON----------
 // Usada para una única instancia global
 class ConfigManager {
   private static instance: ConfigManager;
@@ -188,7 +188,7 @@ const config2 = ConfigManager.getInstance()
 console.log(config2.get('apiURL'));
 console.log(config1 === config2);
 
-// ----------Prototype----------
+// ----------PROTOTYPE----------
 // Clonar objetos completos, sin tener que reconstruirlos
 interface Clonable<T> {
   clone(): T
