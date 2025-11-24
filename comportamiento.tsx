@@ -72,7 +72,49 @@ console.log(context.getShippingCost(100));
 const freContext = new ShippingContext(new FreeShipping())
 console.log(freContext.getShippingCost(100));
 
-// TODO: create strategy patter for characters, with different attack base and critical damage
+// TODO: create strategy pattern for characters, with different attack base and critical damage
+
+//////////////////////////////////////////////
+
+interface ChampionStrategy {
+  calculateCriticalDamage(baseDamage: number): number
+}
+
+class Yasuo implements ChampionStrategy {
+  calculateCriticalDamage(baseDamage: number): number {
+    return baseDamage + 120
+  }
+}
+
+class Morgana implements ChampionStrategy {
+  calculateCriticalDamage(baseDamage: number): number {
+    return baseDamage + 40
+  }
+}
+
+class Volibear implements ChampionStrategy {
+  calculateCriticalDamage(baseDamage: number): number {
+    return baseDamage + 100
+  }
+}
+
+class ChampionContext {
+  constructor(private championStrategy: ChampionStrategy){}
+
+  getCriticalDamage(baseDamage: number) {
+    return this.championStrategy.calculateCriticalDamage(baseDamage)
+  }
+}
+
+const yasuoContext = new ChampionContext(new Yasuo())
+console.log('Yasuo damage: ', yasuoContext.getCriticalDamage(240));
+const morganaContext = new ChampionContext(new Morgana())
+console.log('Morgana damage: ', morganaContext.getCriticalDamage(100));
+const volibearContext = new ChampionContext(new Volibear())
+console.log('Volibear damage: ', volibearContext.getCriticalDamage(195));
+
+
+//////////////////////////////////////////////
 
 
 // COMMAND
